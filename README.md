@@ -1,22 +1,3 @@
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/LunAimW.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/brand/LunAimB.svg">
-    <img src="assets/brand/LunAimB.svg" alt="LunarAim logo" width="128">
-  </picture>
-
-  <h1>LunarAim 2.2</h1>
-  <p><strong>Native runtime architecture · structured UI bridge · GPU-ready detection</strong></p>
-  <p>
-    <a href="docs/Lunar.pdf">Project deck</a> ·
-    <a href="#architecture">Architecture</a> ·
-    <a href="#interface">Interface</a> ·
-    <a href="#gallery">UI gallery</a>
-  </p>
-</div>
-
-<br>
-
 <p align="center">
   <a href="https://t.me/lunaraim2">
     <img src="assets/brand/lunar-aim-banner.png" alt="LunarAim 2.2 — with new interface" width="760">
@@ -41,6 +22,24 @@
   <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"></a>
   <a href="https://github.com/ultralytics/ultralytics"><img src="https://img.shields.io/badge/Ultralytics%20YOLO-111F68?style=for-the-badge&logoColor=white" alt="Ultralytics YOLO"></a>
 </p>
+
+<details>
+<summary>Table of contents</summary>
+<br>
+
+- [What this repository shows](#what-this-repository-shows)
+- [Architecture](#architecture)
+  - [Runtime boundaries](#runtime-boundaries)
+  - [What is new](#what-is-new)
+- [Interface gallery](#interface-gallery)
+  - [Runtime dashboard](#runtime-dashboard)
+  - [Detector configuration](#detector-configuration)
+  - [Runtime tooling](#runtime-tooling)
+- [Detection experiment](#detection-experiment)
+- [Public / private boundary](#public--private-boundary)
+- [Materials](#materials)
+
+</details>
 
 > A public-facing technical overview of Lunar V2: its runtime boundaries, frontend integration model, visual language, and computer-vision experiment. The production application and implementation remain private.
 
@@ -93,56 +92,58 @@ flowchart TB
 
 ### Runtime boundaries
 
-| Boundary | Responsibility |
-| --- | --- |
-| `CoreRuntime` | Owns lifecycle, worker thread, configuration path, state snapshots, and performance telemetry. |
-| `FrontendBridge` | Translates UI requests into a stable native API through dispatchers and handlers. |
-| `IDetector` | Decouples aim logic from the detector implementation, including Color and CUDA paths. |
-| `ITrigger` | Decouples runtime orchestration from the activation mechanism. |
-| `IMouse` | Decouples application logic from the way mouse commands are emitted. |
-| Raw Input module | Keeps Win32 input collection on its own thread and state boundary. |
-| CUDA runtime module | Keeps CUDA / TensorRT dependencies outside the main executable through a separately loaded module. |
+The runtime is split into explicit boundaries so each part can evolve without pulling implementation details into the layers above it.
 
-## From tightly coupled to explicit contracts
+- **`CoreRuntime`.** Owns the lifecycle, worker thread, configuration path, state snapshots, and performance telemetry.
+- **`FrontendBridge`.** Translates UI requests into a stable native API through dispatchers and handlers.
+- **`IDetector`.** Decouples aim logic from the detector implementation, including Color and CUDA paths.
+- **`ITrigger`.** Decouples runtime orchestration from the activation mechanism.
+- **`IMouse`.** Decouples application logic from the way mouse commands are emitted.
+- **Raw Input module.** Keeps Win32 input collection on its own thread and state boundary.
+- **CUDA runtime module.** Keeps CUDA / TensorRT dependencies outside the main executable through a separately loaded module.
 
-The architecture addresses the main limitations of the previous system:
+### What is new
 
-| Before | After |
-| --- | --- |
-| UI reached into internal implementation details | UI communicates through `FrontendBridge` and a structured API |
-| Configuration was an unstructured JSON blob | Configuration is handled through dedicated runtime/configuration boundaries |
-| Start, stop, and restart logic was spread across the codebase | `CoreRuntime` owns a visible lifecycle: `starting → running → stopping` |
-| CUDA / TensorRT affected the whole executable build | GPU functionality is isolated behind a dynamically loaded runtime module |
-| Concrete implementations were hard to replace | `IAimController`, `IDetector`, `ITrigger`, and `IMouse` define seams for substitution |
-| Logs and metrics were ad hoc | Runtime snapshots, telemetry, and a dedicated log view make behavior observable |
+LunarAim 2.2 brings the main runtime concerns into a single, observable flow. The embedded frontend communicates through a structured bridge instead of reaching into internal implementation details, while `CoreRuntime` gives startup, execution, shutdown, and error handling one visible lifecycle.
 
-## Interface
+The runtime contracts make the system easier to extend: aim control, detection, triggering, and mouse output can be replaced independently. Platform-specific work is isolated as well — Win32 Raw Input runs behind its own state boundary, and CUDA / TensorRT is loaded as a separate GPU module rather than becoming a hard dependency of the main executable.
 
-The UI is designed as an operations surface for the runtime rather than a collection of disconnected settings pages.
+Configuration, runtime snapshots, performance telemetry, and logs are exposed as first-class parts of the operator experience. This keeps the UI focused on the current state of the system while leaving the underlying implementations behind clear interfaces.
+
+## Interface gallery
+
+The UI is designed as an operations surface for the runtime, with dedicated views for health, detection, input behavior, and diagnostics.
+
+### Runtime dashboard
+
+The dashboard makes runtime state, active configuration, frame timing, FPS, and telemetry immediately visible.
 
 <p align="center">
   <img src="assets/screenshots/dashboard-running-dark.png" alt="LunarAim dark dashboard with runtime status and performance telemetry" width="49%">
   <img src="assets/screenshots/dashboard-running-light.png" alt="LunarAim light dashboard with runtime status and performance telemetry" width="49%">
 </p>
 
-The dashboard makes the runtime state, active configuration, frame timing, FPS, and telemetry immediately visible. Other views cover detector setup, filters, binds, and core logs.
-
-## Gallery
+### Detector configuration
 
 <p align="center">
   <img src="assets/screenshots/colorbot-dark.png" alt="Colorbot configuration — dark theme" width="49%">
   <img src="assets/screenshots/colorbot-light.png" alt="Colorbot configuration — light theme" width="49%">
+</p>
+
+### Runtime tooling
+
+<p align="center">
   <img src="assets/screenshots/binds-light.png" alt="Binds configuration — light theme" width="49%">
   <img src="assets/screenshots/logs-dark.png" alt="Core logs — dark theme" width="49%">
-  <img src="assets/screenshots/colorbot-dark-detail.png" alt="Colorbot configuration detail — dark theme" width="49%">
-  <img src="assets/screenshots/filters-dark.png" alt="Filters editor — dark theme" width="49%">
 </p>
 
 <details>
-<summary>View the remaining interface screens</summary>
+<summary>Additional interface screens</summary>
 <br>
 
 <p align="center">
+  <img src="assets/screenshots/colorbot-dark-detail.png" alt="Colorbot configuration detail — dark theme" width="49%">
+  <img src="assets/screenshots/filters-dark.png" alt="Filters editor — dark theme" width="49%">
   <img src="assets/screenshots/dashboard-stopped-dark.png" alt="LunarAim stopped runtime dashboard" width="49%">
   <img src="assets/screenshots/runtime-terminal.png" alt="LunarAim runtime log output" width="49%">
 </p>
@@ -170,7 +171,9 @@ The repository includes a small, shareable snapshot of the CS2 detector experime
 
 This is a **showcase repository**, not the Lunar V2 source distribution. It contains the materials that can be shared publicly: architecture notes, design documentation, interface captures, and selected ML artifacts. Private runtime code, production integrations, credentials, and proprietary infrastructure are intentionally excluded.
 
-## Repository layout
+<details>
+<summary>Repository layout</summary>
+<br>
 
 ```text
 .
@@ -183,6 +186,8 @@ This is a **showcase repository**, not the Lunar V2 source distribution. It cont
 └── README.md
 ```
 
+</details>
+
 ## Materials
 
 - [Architecture and project presentation](docs/Lunar.pdf)
@@ -193,5 +198,11 @@ This is a **showcase repository**, not the Lunar V2 source distribution. It cont
 <br>
 
 <div align="center">
-  <sub>LunarAim 2.2 · native interface for a modular runtime</sub>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/LunAimW.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/LunAimB.svg">
+    <img src="assets/brand/LunAimB.svg" alt="LunarAim logo" width="96">
+  </picture>
+  <h2>LunarAim 2.2</h2>
+  <sub>Native runtime architecture · structured UI bridge · GPU-ready detection</sub>
 </div>
