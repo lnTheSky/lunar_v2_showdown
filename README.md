@@ -43,27 +43,39 @@ LunarAim 2.2 is a native Windows application organized around a small, observabl
 
 ## Architecture
 
-```text
-                         Embedded frontend
-                                │
-                FrontendHost / FrontendBridge
-                                │
-                      Native API dispatcher
-                                │
-                         ┌──────────────┐
-                         │  CoreRuntime │
-                         │ start → run  │
-                         │ stop / error │
-                         └──────┬───────┘
-                                │
-          ┌─────────────┬───────┼────────┬─────────────┐
-          │             │       │        │             │
-     AimController   Trigger  Detector  Capture      Mouse
-                                │
-                         IDetector contract
-                                │
-                    CUDA / TensorRT module
-                         loaded separately
+```mermaid
+flowchart TB
+    frontend["Embedded frontend"]
+    bridge["FrontendHost / FrontendBridge"]
+    dispatcher["Native API dispatcher"]
+    runtime["CoreRuntime<br/>starting → running → stopping<br/>error / stopped"]
+
+    aim["AimController"]
+    trigger["Trigger"]
+    detector["Detector"]
+    capture["Capture"]
+    mouse["Mouse"]
+
+    detectorContract["IDetector contract"]
+    cuda["CUDA / TensorRT module<br/>loaded separately"]
+    rawInput["Win32 Raw Input<br/>separate thread"]
+
+    frontend --> bridge --> dispatcher --> runtime
+    runtime --> aim
+    runtime --> trigger
+    runtime --> detector
+    runtime --> capture
+    runtime --> mouse
+    detector --> detectorContract --> cuda
+    capture --> rawInput
+
+    classDef core fill:#2548BB,color:#ffffff,stroke:#17C3E1,stroke-width:2px
+    classDef boundary fill:#0f2f35,color:#ffffff,stroke:#17C3E1
+    classDef module fill:#17243d,color:#ffffff,stroke:#2548BB
+
+    class runtime core
+    class bridge,dispatcher,detectorContract boundary
+    class cuda,rawInput module
 ```
 
 ### Runtime boundaries
