@@ -69,8 +69,16 @@ flowchart TB
     mouse["Mouse"]
 
     detectorContract["IDetector contract"]
+    colorbot["Colorbot<br/>(OpenCV)"]
     cuda["CUDA / TensorRT module<br/>loaded separately"]
     rawInput["Win32 Raw Input<br/>separate thread"]
+    triggerContract["ITrigger"]
+    triggerV1["TriggerV1"]
+    triggerV2["TriggerV2"]
+    mouseContract["IMouse"]
+    winapi["WinAPI"]
+    lunarBox["LunarBox V1 / V2"]
+    vdriver["Virtual Driver<br/>(VDriver)"]
 
     frontend --> bridge --> dispatcher --> runtime
     runtime --> aim
@@ -78,7 +86,16 @@ flowchart TB
     runtime --> detector
     runtime --> capture
     runtime --> mouse
-    detector --> detectorContract --> cuda
+    detector --> detectorContract
+    detectorContract --> colorbot
+    detectorContract --> cuda
+    trigger --> triggerContract
+    triggerContract --> triggerV1
+    triggerContract --> triggerV2
+    mouse --> mouseContract
+    mouseContract --> winapi
+    mouseContract --> lunarBox
+    mouseContract --> vdriver
     capture --> rawInput
 
     classDef core fill:#2548BB,color:#ffffff,stroke:#17C3E1,stroke-width:2px
@@ -86,8 +103,8 @@ flowchart TB
     classDef module fill:#17243d,color:#ffffff,stroke:#2548BB
 
     class runtime core
-    class bridge,dispatcher,detectorContract boundary
-    class cuda,rawInput module
+    class bridge,dispatcher,detectorContract,triggerContract,mouseContract boundary
+    class colorbot,cuda,rawInput,triggerV1,triggerV2,winapi,lunarBox,vdriver module
 ```
 
 ### Runtime boundaries
