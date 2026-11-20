@@ -18,7 +18,15 @@
 <br>
 
 <p align="center">
-  <img src="assets/brand/lunar-aim-banner.png" alt="LunarAim 2.2 — with new interface" width="760">
+  <a href="https://t.me/lunaraim2">
+    <img src="assets/brand/lunar-aim-banner.png" alt="LunarAim 2.2 — with new interface" width="760">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://t.me/in_the_skyyy"><img src="https://img.shields.io/badge/%40in__the__skyyy-2AABEE?style=for-the-badge&logo=telegram&logoColor=white" alt="Contact @in_the_skyyy"></a>
+  <a href="https://t.me/lunaraim"><img src="https://img.shields.io/badge/%40lunaraim-2548BB?style=for-the-badge&logo=telegram&logoColor=white" alt="LunarAim channel @lunaraim"></a>
+  <a href="https://t.me/lunaraim2"><img src="https://img.shields.io/badge/%40lunaraim2-17C3E1?style=for-the-badge&logo=telegram&logoColor=white" alt="LunarAim channel @lunaraim2"></a>
 </p>
 
 > A public-facing technical overview of Lunar V2: its runtime boundaries, frontend integration model, visual language, and computer-vision experiment. The production application and implementation remain private.
