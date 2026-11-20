@@ -29,6 +29,19 @@
   <a href="https://t.me/lunaraim2"><img src="https://img.shields.io/badge/%40lunaraim2-17C3E1?style=for-the-badge&logo=telegram&logoColor=white" alt="LunarAim channel @lunaraim2"></a>
 </p>
 
+<h3 align="center">Built with</h3>
+
+<p align="center">
+  <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/"><img src="https://img.shields.io/badge/WebView2-107C10?style=for-the-badge&logo=microsoftedge&logoColor=white" alt="Microsoft WebView2"></a>
+  <a href="https://learn.microsoft.com/en-us/windows/win32/"><img src="https://img.shields.io/badge/Win32%20API-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Win32 API"></a>
+  <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white" alt="CMake"></a>
+  <a href="https://visualstudio.microsoft.com/vs/features/cplusplus/"><img src="https://img.shields.io/badge/C%2B%2B%20%2F%20MSVC-5C2D91?style=for-the-badge&logo=visualstudio&logoColor=white" alt="C++ and MSVC"></a>
+  <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="NVIDIA CUDA"></a>
+  <a href="https://developer.nvidia.com/tensorrt"><img src="https://img.shields.io/badge/TensorRT-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="NVIDIA TensorRT"></a>
+  <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"></a>
+  <a href="https://github.com/ultralytics/ultralytics"><img src="https://img.shields.io/badge/Ultralytics%20YOLO-111F68?style=for-the-badge&logoColor=white" alt="Ultralytics YOLO"></a>
+</p>
+
 > A public-facing technical overview of Lunar V2: its runtime boundaries, frontend integration model, visual language, and computer-vision experiment. The production application and implementation remain private.
 
 ## What this repository shows
