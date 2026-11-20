@@ -79,6 +79,7 @@ flowchart TB
     winapi["WinAPI"]
     lunarBox["LunarBox V1 / V2"]
     vdriver["Virtual Driver<br/>(VDriver)"]
+    desktopDuplicator["DesktopDuplicator<br/>(DirectX)"]
 
     frontend --> bridge --> dispatcher --> runtime
     runtime --> aim
@@ -97,6 +98,7 @@ flowchart TB
     mouseContract --> lunarBox
     mouseContract --> vdriver
     capture --> rawInput
+    capture --> desktopDuplicator
 
     classDef core fill:#2548BB,color:#ffffff,stroke:#17C3E1,stroke-width:2px
     classDef boundary fill:#0f2f35,color:#ffffff,stroke:#17C3E1
@@ -104,7 +106,7 @@ flowchart TB
 
     class runtime core
     class bridge,dispatcher,detectorContract,triggerContract,mouseContract boundary
-    class colorbot,cuda,rawInput,triggerV1,triggerV2,winapi,lunarBox,vdriver module
+    class colorbot,cuda,rawInput,triggerV1,triggerV2,winapi,lunarBox,vdriver,desktopDuplicator module
 ```
 
 ### Runtime boundaries
