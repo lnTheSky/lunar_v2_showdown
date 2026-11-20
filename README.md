@@ -18,7 +18,7 @@
 <br>
 
 <p align="center">
-  <img src="assets/brand/lunar-aim-cover.png" alt="LunarAim 2.2 — with new interface" width="760">
+  <img src="assets/brand/lunar-aim-banner.png" alt="LunarAim 2.2 — with new interface" width="760">
 </p>
 
 > A public-facing technical overview of Lunar V2: its runtime boundaries, frontend integration model, visual language, and computer-vision experiment. The production application and implementation remain private.
