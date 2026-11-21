@@ -222,5 +222,5 @@ UI задуман как операторская панель runtime с отд
     <img src="assets/brand/LunAimB.svg" alt="Логотип LunarAim" width="96">
   </picture>
   <h2>LunarAim 2.2</h2>
-  <sub>Архитектура native runtime · структурированный UI bridge · GPU-детекция</sub>
+  <sub>Архитектура native runtime · структурированный UI bridge · GPU-детекция · 2026</sub>
 </div>
