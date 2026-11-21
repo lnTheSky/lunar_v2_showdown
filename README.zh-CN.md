@@ -222,5 +222,5 @@ UI 被设计为 runtime 的操作面板，并通过独立页面展示状态、�
     <img src="assets/brand/LunAimB.svg" alt="LunarAim logo" width="96">
   </picture>
   <h2>LunarAim 2.2</h2>
-  <sub>原生 runtime 架构 · 结构化 UI bridge · GPU 检测</sub>
+  <sub>原生 runtime 架构 · 结构化 UI bridge · GPU 检测 · 2026</sub>
 </div>
