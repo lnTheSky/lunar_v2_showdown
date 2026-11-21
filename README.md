@@ -225,5 +225,5 @@ This is a **showcase repository**, not the Lunar V2 source distribution. It cont
     <img src="assets/brand/LunAimB.svg" alt="LunarAim logo" width="96">
   </picture>
   <h2>LunarAim 2.2</h2>
-  <sub>Native runtime architecture · structured UI bridge · GPU-ready detection</sub>
+  <sub>Native runtime architecture · structured UI bridge · GPU-ready detection · 2026</sub>
 </div>
